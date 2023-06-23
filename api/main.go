@@ -28,7 +28,8 @@ func main() {
 	router := gin.Default()
 	api := router.Group("/api/v1")
 
-	api.POST("/register-user", userHandler.RegisterHandler)
+	api.POST("/users", userHandler.RegisterHandler)
+	api.POST("/sessions", userHandler.Login)
 	router.Run()
 	// //karena data banyak, disimpan di array
 	// var users []user.User
