@@ -30,6 +30,7 @@ func main() {
 
 	api.POST("/users", userHandler.RegisterHandler)
 	api.POST("/sessions", userHandler.Login)
+	api.POST("/email_checkers", userHandler.CheckEmailAvailable)
 	router.Run()
 	// //karena data banyak, disimpan di array
 	// var users []user.User
