@@ -31,16 +31,6 @@ func main() {
 	api.POST("/users", userHandler.RegisterHandler)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailable)
+	api.POST("/avatars", userHandler.UploadAvatar)
 	router.Run()
-	// //karena data banyak, disimpan di array
-	// var users []user.User
-
-	// //konek ke Db, find untuk mencari semua data di table user dan tanda "&" untuk mengambil data
-	// db.Find(&users)
-	// //len untuk mengetahui banyaknya data
-	// length := len(users)
-	// fmt.Println(length)
-	// router := gin.Default()
-	// router.GET("/handler", handler)
-	// router.Run()
 }
