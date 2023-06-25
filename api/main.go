@@ -27,9 +27,12 @@ func main() {
 	fmt.Println("connection to datatabase success")
 
 	userRepository := user.NewRepository(db)
+	//campaignRepository := campaign.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+	//campaignService := campaign.NewService(campaignRepository)
 	userHandler := handler.NewUserHandler(userService, authService)
+	//campaignHandler := handler.NewCampaignHandler(campaignService)
 
 	router := gin.Default()
 	api := router.Group("/api/v1")
