@@ -54,20 +54,20 @@ func authMiddleware( authService auth.Service, userService user.Service) gin.Han
 		if len(arrayToken) == 2 {
 			tokenString = arrayToken[1]
 		}
-		token, err := auth.Service.ValidateToken(tokenString)
+		token, err := authService.ValidateToken(tokenString)
 		if err != nil {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
-		claim, ok := token.Claims.(jwt.MapClaims)
-		if !ok || !token.Valid{
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok || !token.Valid {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
-		userId := claim("user_id").(float64)
-		user, err := userService.GetUserByID(userId)
+		userID := claims["user_id"].(float64)
+		user, err := userService.GetUserByID(int(userID))
 		if err != nil {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
