@@ -12,7 +12,7 @@ type repository struct {
 }
 
 func NewRepository(db *gorm.DB) *repository {
-	return &repository{}
+	return &repository{db}
 }
 func (r *repository) FindAll() ([]Campaign, error) {
 	var campaigns []Campaign
