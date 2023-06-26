@@ -1,9 +1,9 @@
 -- +goose Up
 -- +goose StatementBegin
 SELECT 'up SQL query';
-CREATE TABLE IF NOT EXISTS campaigns_images (
+CREATE TABLE IF NOT EXISTS campaign_images (
   id BIGSERIAL PRIMARY KEY,
-  campaigns_id BIGINT REFERENCES "campaigns" (id),
+  campaign_id BIGINT REFERENCES "campaigns" (id),
   file_name VARCHAR(225) NOT NULL,
   is_primary INT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CLOCK_TIMESTAMP(),
