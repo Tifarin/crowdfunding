@@ -10,7 +10,7 @@ type CampaignFormatter struct {
 	CurrrentAmount   int    `json:"current_amount"`
 	Slug             string `json:"slug"`
 }
-
+//tidak bisa langsung digunakan karena kembaliannya bukan slice campaign
 func FormatCampaign(campaign Campaign) CampaignFormatter {
 	campaignFormatter := CampaignFormatter {
 		ID: campaign.ID,
@@ -27,4 +27,17 @@ func FormatCampaign(campaign Campaign) CampaignFormatter {
 	}
 	
 	return campaignFormatter
+}
+
+func FormatCampaigns(campaigns []Campaign) []CampaignFormatter {
+	if len(campaigns) == 0 {
+		return []CampaignFormatter{}
+	}
+	var campaignsFormatter []CampaignFormatter
+	
+	for _, campaign := range campaigns {
+		campaignFormatter := FormatCampaign(campaign)
+		campaignsFormatter = append(campaignsFormatter, campaignFormatter)
+	}
+	return campaignsFormatter
 }
