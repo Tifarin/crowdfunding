@@ -3,6 +3,7 @@ package main
 import (
 	"api/auth"
 	"api/campaign"
+	"api/config"
 	"api/handler"
 	"api/helper"
 	"api/user"
@@ -18,8 +19,11 @@ import (
 )
 
 func main() {
+	// load the configuration
+    cfg := config.InitConfig()
+	
 	//membuat koneksi ke database postgres
-	dsn := "host=localhost user=latifah password=lupakatasandi dbname=crowdfunding_db port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := cfg.DB.Host
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
