@@ -21,8 +21,8 @@ import (
 
 func main() {
 	// load the configuration
-    cfg := config.InitConfig()
-	
+	cfg := config.InitConfig()
+
 	//membuat koneksi ke database postgres
 	dsn := cfg.DB.Host
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -52,22 +52,23 @@ func main() {
 	api.POST("/users", userHandler.RegisterHandler)
 	api.POST("/sessions", userHandler.Login)
 	api.POST("/email_checkers", userHandler.CheckEmailAvailable)
-	api.POST("/avatars",authMiddleware(authService, userService),userHandler.UploadAvatar)
-	
+	api.POST("/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
+
 	api.GET("/campaigns", campaignHandler.GetCampaigns)
 	api.GET("/campaigns/:id", campaignHandler.GetCampaign)
-	api.POST("/campaigns",authMiddleware(authService, userService), campaignHandler.CreateCampaign)
-	api.PUT("/campaigns/:id",authMiddleware(authService, userService), campaignHandler.UpdateCampaign)
-	api.POST("/campaign-images",authMiddleware(authService, userService), campaignHandler.UploadImage)
-	
+	api.POST("/campaigns", authMiddleware(authService, userService), campaignHandler.CreateCampaign)
+	api.PUT("/campaigns/:id", authMiddleware(authService, userService), campaignHandler.UpdateCampaign)
+	api.POST("/campaign-images", authMiddleware(authService, userService), campaignHandler.UploadImage)
+
 	api.GET("/campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransactions)
+	api.GET("/transactions", authMiddleware(authService, userService), transactionHandler.GetUserTransactions)
 
 	router.Run()
 }
-func authMiddleware( authService auth.Service, userService user.Service) gin.HandlerFunc {
-	return func (c *gin.Context) {
+func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
-	
+
 		if !strings.Contains(authHeader, "Bearer") {
 			response := helper.APIResponse("Unauthorized", http.StatusUnauthorized, "error", nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
