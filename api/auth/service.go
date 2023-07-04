@@ -13,10 +13,10 @@ type Service interface {
 }
 
 type jwtService struct {
-	cfg *config.Config
+	cfg config.Config
 }
 
-func NewService(cfg *config.Config) *jwtService {
+func NewService(cfg config.Config) *jwtService {
 	return &jwtService{cfg}
 }
 

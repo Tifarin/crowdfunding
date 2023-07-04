@@ -13,10 +13,9 @@ import (
 type userHandler struct {
 	userService user.Service
 	authService auth.Service
-
 }
 
-func NewUserHandler(userService user.Service,  authService auth.Service) *userHandler {
+func NewUserHandler(userService user.Service, authService auth.Service) *userHandler {
 	return &userHandler{userService, authService}
 }
 func (h *userHandler) RegisterHandler(c *gin.Context) {
@@ -115,7 +114,7 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
-	
+
 	currentUser := c.MustGet("currentUser").(user.User)
 	userID := currentUser.ID
 
@@ -138,5 +137,12 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 	}
 	data := gin.H{"is_uploaded": true}
 	response := helper.APIResponse("avatar successfully uploaded", http.StatusOK, "success", data)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *userHandler) FetchUser(c *gin.Context) {
+	currentUser := c.MustGet("currentUser").(user.User)
+	formatter := user.FormatUser(currentUser, "")
+	response := helper.APIResponse("succesfully fetch user data", http.StatusOK, "success", formatter)
 	c.JSON(http.StatusOK, response)
 }

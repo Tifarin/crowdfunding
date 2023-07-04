@@ -11,6 +11,7 @@ type Config struct {
 	DB        DBConfig
 	JWTConfig JWTConfig
 	Mailer    Mailer
+	Midtrans  Midtrans
 }
 
 type ServerConfig struct {
@@ -47,6 +48,10 @@ type Mailer struct {
 	MaxAttempt int
 }
 
+type Midtrans struct {
+	Server string
+	Client string
+}
 
 func InitConfig() Config {
 	viper.SetConfigName(".env")

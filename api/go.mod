@@ -53,6 +53,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/spf13/viper v1.16.0
+	github.com/veritrans/go-midtrans v0.0.0-20210616100512-16326c5eeb00
 	golang.org/x/crypto v0.9.0
 	golang.org/x/text v0.9.0 // indirect
 )
