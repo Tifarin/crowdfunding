@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   campaigns_id BIGINT REFERENCES "campaigns" (id),
   user_id BIGINT REFERENCES "users" (id),
   ammount INT,
+  payment_url VARCHAR(225),
   status VARCHAR(225) NOT NULL,
   code VARCHAR(225) NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CLOCK_TIMESTAMP(),

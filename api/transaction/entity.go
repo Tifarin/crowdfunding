@@ -13,7 +13,8 @@ type Transaction struct {
 	Amount     int
 	Status     string
 	Code       string
-	Campaign campaign.Campaign
+	PaymentURL string
+	Campaign   campaign.Campaign
 	User       user.User
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
