@@ -1,6 +1,7 @@
 package payment
 
 import (
+	"api/campaign"
 	"api/config"
 	"api/user"
 	"strconv"
@@ -14,10 +15,11 @@ type Service interface {
 
 type service struct {
 	cfg config.Config
+	campaignRepository campaign.Repository
 }
 
-func NewService(cfg config.Config) *service {
-	return &service{cfg}
+func NewService(cfg config.Config, campaignRepository campaign.Repository) *service {
+	return &service{cfg, campaignRepository}
 }
 
 func (s *service) GetPaymentURL(transaction Transaction, user user.User) (string, error) {

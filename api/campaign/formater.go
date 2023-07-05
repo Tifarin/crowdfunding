@@ -14,18 +14,19 @@ type CampaignFormatter struct {
 }
 
 type CampaignDetailFormatter struct {
-	ID               int                   `json:"id"`
-	Name             string                `json:"name"`
-	ShortDescription string                `json:"short_description"`
-	Description      string                `json:"description"`
-	ImageURL         string                `json:"image_url"`
-	GoalAmount       int                   `json:"goal_amount"`
-	CurrrentAmount   int                   `json:"current_amount"`
-	UserID           int                   `json:"user_id"`
-	Slug             string                `json:"slug"`
-	Perks            []string              `json:"perks"`
-	User             CampaignUserFormatter `json:"user"`
-	Images []CampaignImageFormatter `json:"images"`
+	ID               int                      `json:"id"`
+	Name             string                   `json:"name"`
+	ShortDescription string                   `json:"short_description"`
+	Description      string                   `json:"description"`
+	ImageURL         string                   `json:"image_url"`
+	GoalAmount       int                      `json:"goal_amount"`
+	CurrrentAmount   int                      `json:"current_amount"`
+	BackerCount      int                      `json:"backer_count"`
+	UserID           int                      `json:"user_id"`
+	Slug             string                   `json:"slug"`
+	Perks            []string                 `json:"perks"`
+	User             CampaignUserFormatter    `json:"user"`
+	Images           []CampaignImageFormatter `json:"images"`
 }
 
 type CampaignUserFormatter struct {
@@ -34,9 +35,10 @@ type CampaignUserFormatter struct {
 }
 
 type CampaignImageFormatter struct {
-	ImageURL string `json:"image_url"`
-	IsPrimary bool `json:"is_primary"`
+	ImageURL  string `json:"image_url"`
+	IsPrimary bool   `json:"is_primary"`
 }
+
 // tidak bisa langsung digunakan karena kembaliannya bukan slice campaign
 func FormatCampaign(campaign Campaign) CampaignFormatter {
 	campaignFormatter := CampaignFormatter{
@@ -77,6 +79,7 @@ func FormatCampaignDetail(campaign Campaign) CampaignDetailFormatter {
 	campaignDetailFormatter.Description = campaign.Description
 	campaignDetailFormatter.GoalAmount = campaign.GoalAmount
 	campaignDetailFormatter.CurrrentAmount = campaign.CurrentAmount
+	campaignDetailFormatter.BackerCount = campaign.BackerCount
 	campaignDetailFormatter.Slug = campaign.Slug
 	campaignDetailFormatter.UserID = campaign.UserID
 	campaignDetailFormatter.ImageURL = ""
@@ -95,13 +98,13 @@ func FormatCampaignDetail(campaign Campaign) CampaignDetailFormatter {
 	campaignUserFormatter.ImageURL = user.AvatarFileName
 
 	campaignDetailFormatter.User = campaignUserFormatter
-	
+
 	images := []CampaignImageFormatter{}
 
 	for _, image := range campaign.CampaignImages {
-		caampaignImageFormatter:= CampaignImageFormatter{}
+		caampaignImageFormatter := CampaignImageFormatter{}
 		caampaignImageFormatter.ImageURL = image.FileName
-		isPrimary :=  false
+		isPrimary := false
 		if image.IsPrimary == 1 {
 			isPrimary = true
 		}
@@ -113,4 +116,3 @@ func FormatCampaignDetail(campaign Campaign) CampaignDetailFormatter {
 
 	return campaignDetailFormatter
 }
-
