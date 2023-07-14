@@ -32,7 +32,8 @@
                 >
               </li>
             </ul>
-            <ul class="flex ml-auto items-center mt-2">
+            <ul class="flex ml-auto items-center mt-2"
+            v-if="!this.$store.state.auth.loggedIn">
               <li>
                 <nuxt-link
                   to="/register"

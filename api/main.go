@@ -49,7 +49,12 @@ func main() {
 	transactionHandler := handler.NewtransactionHandler(transactionService)
 
 	router := gin.Default()
-	router.Use(cors.Default())
+	// Mengatur konfigurasi CORS untuk mengizinkan permintaan dari "http://localhost:3000"
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders: []string{"Origin", "Authorization", "Content-Type"},
+	}))
 	router.Static("/images", "./images")
 	api := router.Group("/api/v1")
 
