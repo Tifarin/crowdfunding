@@ -26,8 +26,16 @@ func APIResponse(message string, code int, status string, data interface{}) Resp
 }
 func FormatValidationError(err error) []string {
 	var errors []string
-	for _, e := range err.(validator.ValidationErrors) {
-		errors = append(errors, e.Error())
+	if validationErrs, ok := err.(validator.ValidationErrors); ok {
+		for _, e := range validationErrs {
+			errors = append(errors, e.Error())
+		}
+	} else {
+		// Handle other types of errors here, if needed.
+		// For example, if the error is not of type ValidationErrors,
+		// you can add a default error message to the errors slice.
+		errors = append(errors, "Validation error: "+err.Error())
 	}
 	return errors
 }
+
