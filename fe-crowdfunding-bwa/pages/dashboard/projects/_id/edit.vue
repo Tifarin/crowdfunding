@@ -118,16 +118,21 @@ export default {
   methods:{
     async save() {
       try {
+
+        let perkArray = this.campaign.data.perks;
+        let perkCampaign = typeof(perkArray) === 'string' ? perkArray : perkArray.join(', ');
+
         let response = await this.$axios.$put('api/v1/campaigns/'+this.$route.params.id, 
         {
           name: this.campaign.data.name,
           short_description : this.campaign.data.short_description,
           description : this.campaign.data.description,
           goal_amount : this.campaign.data.goal_amount,
-          perks : this.campaign.data.perks,
+          perks : perkCampaign
         })
         
-        console.log(response)
+        return
+
       } catch (error) {
         console.log(error)
       }
