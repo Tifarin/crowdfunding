@@ -53,7 +53,7 @@ func main() {
 	transactionHandler := handler.NewtransactionHandler(transactionService)
 
 	userWebHandler := webHandler.NewUserHandler(userService)
-	campaignWebHandler := webHandler.NewCampaignHandler(campaignService)
+	campaignWebHandler := webHandler.NewCampaignHandler(campaignService, userService)
 
 	router := gin.Default()
 	// Mengatur konfigurasi CORS untuk mengizinkan permintaan dari "http://localhost:3000"
@@ -96,6 +96,8 @@ func main() {
 	router.POST("/users/avatar/:id", userWebHandler.CreateAvatar)
 
 	router.GET("/campaigns", campaignWebHandler.Index)
+	router.GET("/campaigns/new", campaignWebHandler.New)
+	router.POST("/campaigns", campaignWebHandler.Create)
 
 	router.Run()
 }
