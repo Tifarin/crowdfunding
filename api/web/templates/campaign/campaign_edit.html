@@ -1,5 +1,5 @@
 {{ define "content"}}
-<h2 class="mb-4">Create New Campaign</h2>
+<h2 class="mb-4">Edit Campaign</h2>
 {{if .Error}}
 <div class="alert alert-danger">
     {{.Error}}
@@ -7,20 +7,7 @@
 {{end}}
 <div class="card mb-4">
     <div class="card-body">
-        <form action="/campaigns" method="post">
-            <div class="form-group">
-                <label for="user_id">User</label>
-                <select name="user_id" class="form-control">
-                    <option value="">-- Select User --</option>
-                    {{range .Users}}
-                    {{if eq .ID $.UserID}}
-                    <option value="{{.ID }}" selected>{{.Name}}</option>
-                    {{else}}
-                    <option value="{{.ID }}">{{.Name}}</option>
-                    {{end}}
-                    {{end}}
-                </select>
-            </div>
+        <form action="/campaigns/update/{{ .ID }}" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" placeholder="enter name" required class="form-control" value="{{.Name}}">
