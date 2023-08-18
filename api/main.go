@@ -54,6 +54,8 @@ func main() {
 
 	userWebHandler := webHandler.NewUserHandler(userService)
 	campaignWebHandler := webHandler.NewCampaignHandler(campaignService, userService)
+	transactionWebHandler := webHandler.NewTransactionHandler(transactionService)
+
 
 	router := gin.Default()
 	// Mengatur konfigurasi CORS untuk mengizinkan permintaan dari "http://localhost:3000"
@@ -104,6 +106,8 @@ func main() {
 	router.POST("/campaigns/update/:id", campaignWebHandler.Update)
 	router.GET("/campaigns/show/:id", campaignWebHandler.Show)
 	
+	router.GET("/transactions", transactionWebHandler.Index)
+
 	router.Run()
 }
 func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
